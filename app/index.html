@@ -30,9 +30,9 @@
 							<ul>
 								<li class="header">Passwordify</li>
 								<ul class="pull-right">
-									<li><a href="#">Generate</a></li>
-									<li><a href="#">Bruteforce</a></li>
-									<li><a href="#">About Passwords</a></li>
+									<li><a href="#"><del>Generate</del></a></li>
+									<li><a href="#"><del>Bruteforce</del></a></li>
+									<li><a href="#"><del>About Passwords</del></a></li>
 								</ul>
 							</ul>
 						</div>
@@ -56,8 +56,42 @@
 									<li class="no mixcase">Complexity with upper and lowercase letters</li>
 									<li class="no numbers">Add numbers to the base password</li>
 									<li class="no symbols">Use symbols to complicate it further</li>
-									<li class="no dictionary">Don't use words from a dictionary</li>
+									<li class="no dictionary"><del>Don't use words from a dictionary</del></li>
 								</ul>
+								<hr />
+								<h4 class="hidden-xs">Stuff about your Password</h4>
+								<div class="well hidden-xs">
+									<table style="width: 100%">
+										<tr>
+											<td>MD5-Hash</td>
+											<td style="text-align: right" class="md5">-</td>
+										</tr>
+										<tr>
+											<td>Length</td>
+											<td style="text-align: right" class="lengthc">0</td>
+										</tr>
+										<tr>
+											<td>Color Code</td>
+											<td style="text-align: right" class="colorcode">
+												<ul class="colors">
+													<li class="color-0"></li>
+													<li class="color-1"></li>
+													<li class="color-2"></li>
+													<li class="color-3"></li>
+													<li class="color-4"></li>
+												</ul>
+												
+											</td>
+										</tr>
+										<tr>
+											<td>Time required to crack</td>
+											<td style="text-align: right" class="timeToCrack"><del>not implemented yet</del></td>
+										</tr>
+										
+									</table>
+									
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -87,6 +121,7 @@
         </script>
 
         <!-- build:js scripts/main.js -->
+		<script src="scripts/crypto.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 

@@ -1,4 +1,43 @@
 $(function(){
+	window.color_code = function(password){
+		var colors = [];
+		var md5 = CryptoJS.MD5(password).toString();
+		// length = 32 -> strip last 2. -> generate 5 colors
+		md5 = md5.substring(0,30);
+		
+		
+		for (var i = 0; i < 5; i++){
+			colors.push(md5.substring((i*6), 6 + (i*6)));
+		}
+
+		
+		for (var i = 0, len = colors.length; i < len; i++){
+			$(".color-" + i).css("background-color", "#" + colors[i]);
+		}
+		
+		
+		
+		
+	}
+	
+	window.plural = function(string, count){
+		if (count == 1){ return 1 +  " " + string; }
+		return count + " " + string + "s";
+	}
+	
+	window.dictionary_timeout = null;
+	window.dictionary_check = function(password){
+		if (window.dictionary_timeout){ clearTimeout(window.dictionary_timeout); }
+		
+		window.dictionary_timeout = setTimeout(function(password){
+			// http://ajax.raszyk.de/proxies/oxford.dictionary.js
+			/*
+				pr.Oxford('Car', function(err, results){
+					if (err || results.length == 0){ $no.dictionary()}
+				})
+			*/
+		}, 500, password);
+	}
 	
 	window.PasswordChecks = [
 	// numbers
@@ -6,7 +45,7 @@ $(function(){
 		var perNumber = 1.3;
 
 		var numbersCount = password.match(/\d/g)
-		if (numbersCount == null){ $(".numbers").removeClass("yes").addClass("no"); return 0; }
+		if (numbersCount == null){		$(".numbers").removeClass("yes").addClass("no"); return 0; }
 		numbersCount = numbersCount.length;
 		
 		if (numbersCount > 10){ numbersCount = 10; }
@@ -16,7 +55,7 @@ $(function(){
 		} else {
 			$(".numbers").removeClass("yes").addClass("no");
 		}
-		
+
 		perNumber *= numbersCount;
 		return perNumber;
 		
@@ -25,6 +64,8 @@ $(function(){
 	function(password){
 		var perChar = 1.2;
 		var length = password.length;
+		$(".lengthc").html(plural("character", length));
+
 		if (length > 15) {
 			length = 15;
 		}
@@ -79,11 +120,17 @@ $(function(){
 		}
 		$block.animate({ width: indicator + "%"}, 100)
 		
+		dictionary_check(password);
+		color_code(password);
+		// md5 hash
+		$(".md5").html(CryptoJS.MD5(password).toString())
 		
 	}).on("focus", function(){
 		$(".hints").slideDown();
 	}).on("blur", function(){
 		$(".hints").slideUp()
 	});
+	
+
 	
 });
